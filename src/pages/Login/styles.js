@@ -1,11 +1,12 @@
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { Field, Form as FormikForm } from 'formik';
 
 export const MainContainer = styled.div`
     height: 100vh;
     background-color: #00294E;
 `;
 
-export const FormContainer = styled.form`
+export const Form = styled(FormikForm)`
     position: absolute;
     top: 50%;
     left: 50%;
@@ -31,13 +32,19 @@ export const Label = styled.label`
     margin-bottom: 5px;
 `;
 
-export const Input = styled.input`
+export const Input = styled(Field)`
     width: 100%;
     padding: 10px;
     outline: none;
     border-radius: 2px;
     border: 1px solid #1C5D99;
 `;
+
+export const ErrorText = styled.p`
+    margin: 0;
+    color: red;
+    font-size: 12px;
+`
 
 export const FormOptions = styled.div`
     display: flex;

@@ -1,33 +1,60 @@
 import { useNavigate } from "react-router-dom";
+import { ErrorMessage, Formik } from "formik";
+import * as Yup from 'yup';
 import {
     MainContainer,
-    FormContainer,
+    Form,
     FormTitle,
     InputContainer,
     Label,
     Input,
+    ErrorText,
     FormOptions,
     CheckInput,
     CheckLabel,
     SubmitButton
 } from "./styles";
 
+const validationSchema = Yup.object({
+    email: Yup.string()
+        .email('Por favor, insira um e-mail válido')
+        .required('Por favor, informe seu e-mail'),
+
+    password: Yup.string()
+        .required('Por favor, informe sua senha!')
+})
+
 const Login = () => {
     const navigate = useNavigate();
+
+    const loginUser = (values) => {
+        console.log('Usuário logado: ', values);
+        navigate('/home');
+    }
     return (
         <>
             <MainContainer>
-                <FormContainer>
+                <Formik
+                    initialValues={{
+                        email: '',
+                        password: '',
+                    }}
+                    onSubmit={loginUser}
+                    validationSchema={validationSchema}
+                >
+                <Form>
                     <FormTitle>Login</FormTitle>
 
                     <InputContainer>
                         <Label htmlFor="email">Email</Label>
-                        <Input type="email" name="email" id="email" required />
+                        <Input type="email" name="email" id="email" />
+                        <ErrorMessage name='email' component={ErrorText}/>
                     </InputContainer>
 
                     <InputContainer>
                         <Label htmlFor="password">Senha</Label>
-                        <Input type="password" name="password" id="password" required />
+                        <Input type="password" name="password" id="password" />
+                        <ErrorMessage name='password' component={ErrorText}/>
                     </InputContainer>
 
                     <FormOptions>
@@ -38,8 +65,9 @@ const Login = () => {
                         <span><a href="#">Esqueceu a senha?</a></span>
                     </FormOptions>
 
-                    <SubmitButton type="submit" onClick={() => navigate('/home')}>Entrar</SubmitButton>
-                </FormContainer>
+                    <SubmitButton type="submit">Entrar</SubmitButton>
+                </Form>
+                </Formik>
             </MainContainer>
         </>
     )
