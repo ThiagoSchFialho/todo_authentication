@@ -14,7 +14,7 @@ export const Form = styled(FormikForm)`
     width: 450px;
     background-color: #F4FAFF;
     border-radius: 20px;
-    padding: 20px 50px 40px 50px;
+    padding: 20px 50px;
 `;
 
 export const FormTitle = styled.h1`
@@ -36,7 +36,7 @@ export const Input = styled(Field)`
     width: 100%;
     padding: 10px;
     outline: none;
-    border-radius: 2px;
+    border-radius: 5px;
     border: 1px solid #1C5D99;
 `;
 
@@ -73,4 +73,9 @@ export const SubmitButton =  styled.button`
     border-radius: 10px;
     padding: 10px 40px;
     cursor: pointer;
+`;
+
+export const Redirect = styled.p`
+    margin-top: 15px;
+    text-align: center;
 `;

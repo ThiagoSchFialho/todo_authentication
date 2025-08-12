@@ -12,7 +12,8 @@ import {
     FormOptions,
     CheckInput,
     CheckLabel,
-    SubmitButton
+    SubmitButton,
+    Redirect
 } from "./styles";
 
 const validationSchema = Yup.object({
@@ -66,6 +67,7 @@ const Login = () => {
                     </FormOptions>
 
                     <SubmitButton type="submit">Entrar</SubmitButton>
+                    <Redirect>Novo aqui? <a href="/signup">Cadastre-se</a></Redirect>
                 </Form>
                 </Formik>
             </MainContainer>
