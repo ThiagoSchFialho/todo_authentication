@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { ErrorMessage, Formik } from "formik";
+import { useAuth } from '../../hooks/useAuth';
 import * as Yup from 'yup';
 import {
     MainContainer,
@@ -26,12 +27,19 @@ const validationSchema = Yup.object({
 })
 
 const Login = () => {
+    const { login } = useAuth();
     const navigate = useNavigate();
 
-    const loginUser = (values) => {
-        console.log('Usuário logado: ', values);
-        navigate('/home');
+    const handleLogin = async (values) => {
+        const result = await login(values);
+
+        if (result.success) {
+            navigate('/home');
+        } else {
+            console.log('Credenciais incorretas ou erro: ', result.error);
+        }
     }
+
     return (
         <>
             <MainContainer>
@@ -40,7 +48,7 @@ const Login = () => {
                         email: '',
                         password: '',
                     }}
-                    onSubmit={loginUser}
+                    onSubmit={handleLogin}
                     validationSchema={validationSchema}
                 >
                 <Form>
