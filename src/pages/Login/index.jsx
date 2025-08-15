@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { ErrorMessage, Formik } from "formik";
-import { useAuth } from '../../hooks/useAuth';
 import * as Yup from 'yup';
+import { useAuth } from '../../hooks/useAuth';
+import PopUpMessage from "../../components/PopUpMessage/PopUpMessage";
 import {
     MainContainer,
     Form,
@@ -29,20 +31,25 @@ const validationSchema = Yup.object({
 const Login = () => {
     const { login } = useAuth();
     const navigate = useNavigate();
+    const [ loginError, setLoginError ] = useState(null);
 
     const handleLogin = async (values) => {
+        setLoginError(null);
         const result = await login(values);
 
         if (result.success) {
             navigate('/home');
         } else {
-            console.log('Credenciais incorretas ou erro: ', result.error);
+            setLoginError('Credenciais Incorretas');
         }
     }
 
     return (
         <>
             <MainContainer>
+                {loginError &&
+                    <PopUpMessage type="error" message="Credenciais incorretas"/>
+                }
                 <Formik
                     initialValues={{
                         email: '',
