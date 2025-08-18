@@ -10,7 +10,7 @@ export const FormContainer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -45%);
 `;
 
 export const Form = styled(FormikForm)`
@@ -18,17 +18,25 @@ export const Form = styled(FormikForm)`
     width: 450px;
     background-color: #F4FAFF;
     border-radius: 20px;
-    padding: 20px 50px;
+    padding: 20px 40px;
 `;
 
 export const FormTitle = styled.h1`
     font-size: 20pt;
     margin-bottom: 30px;
     text-align: center;
+
+    @media (max-width: 1366px) {
+        margin-bottom: 20px;
+    }
 `;
 
 export const InputContainer = styled.div`
     margin-bottom: 20px;
+    
+    @media (max-width: 1366px) {
+        margin-bottom: 10px;
+    }
 `;
 
 export const Label = styled.label`
@@ -54,6 +62,7 @@ export const SubmitButton = styled.button`
     width: 100%;
     display: block;
     margin: 0 auto;
+    margin-top: 60px;
     background-color: #1C5D99;
     color: white;
     font-size: 16pt;
@@ -61,6 +70,10 @@ export const SubmitButton = styled.button`
     border-radius: 10px;
     padding: 10px 40px;
     cursor: pointer;
+
+    @media (max-width: 1366px) {
+        margin-top: 50px;
+    }
 `;
 
 export const Redirect = styled.p`
