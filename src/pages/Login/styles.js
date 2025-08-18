@@ -46,20 +46,10 @@ export const ErrorText = styled.p`
     font-size: 12px;
 `
 
-export const FormOptions = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+export const ForgotPassword = styled.div`
+    margin-top: -20px;
     margin-bottom: 40px;
-`;
-
-export const CheckInput = styled.input`
-    margin-right: 5px;
-    cursor: pointer;
-`;
-
-export const CheckLabel = styled.label`
-    cursor: pointer;
+    text-align: right;
 `;
 
 export const SubmitButton =  styled.button`

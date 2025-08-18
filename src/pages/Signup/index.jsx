@@ -1,6 +1,9 @@
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { ErrorMessage, Formik } from "formik";
 import * as Yup from 'yup';
+import { useAuth } from '../../hooks/useAuth';
+import PopUpMessage from "../../components/PopUpMessage/PopUpMessage";
 import {
     MainContainer,
     FormContainer,
@@ -30,15 +33,26 @@ const validationSchema = Yup.object({
 })
 
 const Signup = () => {
+    const { signup } = useAuth();
     const navigate = useNavigate();
+    const [ signupError, setSignupError ] = useState(null);
 
-    const signupUser = (values) => {
-        console.log('Usuário cadastrado: ', values);
-        navigate('/');
+    const signupUser = async (values) => {
+        setSignupError(null);
+        const result = await signup(values);
+
+        if (result.success) {
+            navigate('/');
+        } else {
+            setSignupError(result.error);
+        }
     }
     return (
         <>
             <MainContainer>
+                {signupError &&
+                    <PopUpMessage type="error" message={signupError}/>
+                }
                 <FormContainer>
                     <Formik
                         initialValues={{

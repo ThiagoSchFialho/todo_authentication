@@ -12,9 +12,7 @@ import {
     Label,
     Input,
     ErrorText,
-    FormOptions,
-    CheckInput,
-    CheckLabel,
+    ForgotPassword,
     SubmitButton,
     Redirect
 } from "./styles";
@@ -40,7 +38,7 @@ const Login = () => {
         if (result.success) {
             navigate('/home');
         } else {
-            setLoginError('Credenciais Incorretas');
+            setLoginError(result.error);
         }
     }
 
@@ -48,7 +46,7 @@ const Login = () => {
         <>
             <MainContainer>
                 {loginError &&
-                    <PopUpMessage type="error" message="Credenciais incorretas"/>
+                    <PopUpMessage type="error" message={loginError}/>
                 }
                 <Formik
                     initialValues={{
@@ -73,13 +71,9 @@ const Login = () => {
                         <ErrorMessage name='password' component={ErrorText}/>
                     </InputContainer>
 
-                    <FormOptions>
-                        <div>
-                            <CheckInput type="checkbox" name="remember_me" id="remember_me" />
-                            <CheckLabel htmlFor="remember_me">Lembre de mim</CheckLabel>
-                        </div>
+                    <ForgotPassword>
                         <span><a href="#">Esqueceu a senha?</a></span>
-                    </FormOptions>
+                    </ForgotPassword>
 
                     <SubmitButton type="submit">Entrar</SubmitButton>
                     <Redirect>Novo aqui? <a href="/signup">Cadastre-se</a></Redirect>

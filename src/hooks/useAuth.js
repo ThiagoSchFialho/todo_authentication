@@ -46,5 +46,30 @@ export const useAuth = () => {
         }
     }
 
-    return { login }
+    const signup = async (values) => {
+        try {
+            const response = await fetch(`${host}/users/signup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'Application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = await response.json();
+
+            if (!response.ok) {
+                console.error('Erro no cadastro: ', data.error || 'Resposta inválida');
+                return { success: false, error: data.error || 'Falha no cadastro' };
+            }
+
+            return { success: true };
+            
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return { sucess: false, error: 'Erro de conexão com servidor' };
+        }
+
+    }
+
+    return { login, signup }
 }
