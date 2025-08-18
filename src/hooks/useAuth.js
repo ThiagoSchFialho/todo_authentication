@@ -51,7 +51,7 @@ export const useAuth = () => {
             const response = await fetch(`${host}/users/signup`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'Application/json'
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(values)
             });

@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import { useDb } from "../../hooks/useDb";
+import Task from "../../components/Task/Task";
 import {
     MainContainer,
     SidePainel,
@@ -13,13 +16,6 @@ import {
     ListContainer,
     List,
     ListTitle,
-    TaskContainer,
-    TaskCheckBox,
-    TaskContentContainer,
-    TaskInfo,
-    TaskTitle,
-    TaskCategory,
-    TaskDateTime,
     Description,
     DescriptionTitle,
     DescriptionInfo,
@@ -28,6 +24,19 @@ import {
 } from "./styles"
 
 const Home = () => {
+    const userId = localStorage.getItem('userId');
+    const { getTasks } = useDb();
+    const [tasks, setTasks] = useState();
+
+    useEffect(() => {
+        const fetchTasks = async () => {
+            const tasks = await getTasks(userId);
+            setTasks(tasks);
+        };
+
+        fetchTasks();
+    }, []);
+
     return (
         <>
             <MainContainer>
@@ -70,29 +79,18 @@ const Home = () => {
                 </SidePainel>
 
                 <ListContainer>
-                    <List>
-                        <ListTitle>Trabalho</ListTitle>
-                        <TaskContainer>
-                            <TaskCheckBox src="/check_box_checked.svg"/>
-                            <TaskContentContainer>
-                                <TaskTitle>Reunião com o cliente</TaskTitle>
-                                <TaskInfo>
-                                    <TaskCategory>Trabalho</TaskCategory>
-                                    <TaskDateTime>Hoje - 12:00</TaskDateTime>
-                                </TaskInfo>
-                            </TaskContentContainer>
-                        </TaskContainer>
 
-                        <TaskContainer>
-                            <TaskCheckBox src="/check_box.svg"/>
-                            <TaskContentContainer>
-                                <TaskTitle>Reunião com o cliente</TaskTitle>
-                                <TaskInfo>
-                                    <TaskCategory>Trabalho</TaskCategory>
-                                    <TaskDateTime>10/08/25 - 14:30</TaskDateTime>
-                                </TaskInfo>
-                            </TaskContentContainer>
-                        </TaskContainer>
+                    <List>
+                        <ListTitle>Todas as categorias</ListTitle>
+                        {tasks && tasks.length > 0 ? (
+                            <>
+                                {tasks.map((task) => (
+                                    <Task key={task.id} task={task} />
+                                ))}
+                            </>
+                        ) : (
+                            <p>Nenhuma tarefa encontrada.</p>
+                        )}
                     </List>
 
                     <Description>
