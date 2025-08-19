@@ -23,17 +23,39 @@ import {
     DescriptionText
 } from "./styles"
 
+const getDate = (date) => {
+    const currentDate = new Date();
+    const d = new Date(date);
+
+    const isToday =
+        d.getDate() === currentDate.getDate() &&
+        d.getMonth() === currentDate.getMonth() &&
+        d.getFullYear() === currentDate.getFullYear();
+
+    if (isToday) {
+        return 'Hoje';
+
+    } else {
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const year = d.getFullYear().toString();
+
+        return `${day}/${month}/${year}`;
+    }
+}
+
 const Home = () => {
     const userId = localStorage.getItem('userId');
     const { getTasks } = useDb();
     const [tasks, setTasks] = useState();
+    const [selectedTask, setSelectedTask] = useState();
+
+    const fetchTasks = async () => {
+        const tasks = await getTasks(userId);
+        setTasks(tasks);
+    };
 
     useEffect(() => {
-        const fetchTasks = async () => {
-            const tasks = await getTasks(userId);
-            setTasks(tasks);
-        };
-
         fetchTasks();
     }, []);
 
@@ -85,7 +107,12 @@ const Home = () => {
                         {tasks && tasks.length > 0 ? (
                             <>
                                 {tasks.map((task) => (
-                                    <Task key={task.id} task={task} />
+                                    <Task 
+                                        key={task.id} 
+                                        task={task} 
+                                        fetch={() => fetchTasks()}
+                                        selectedTask={() => setSelectedTask(task)}
+                                    />
                                 ))}
                             </>
                         ) : (
@@ -93,13 +120,15 @@ const Home = () => {
                         )}
                     </List>
 
-                    <Description>
-                        <DescriptionTitle>Reunião com o cliente</DescriptionTitle>
-                        <DescriptionInfo><strong>Data:</strong> Hoje</DescriptionInfo>
-                        <DescriptionInfo><strong>Horário:</strong> 12:00</DescriptionInfo>
-                        <DescritionTitle2>Descrição</DescritionTitle2>
-                        <DescriptionText>Reunião importante com o cliente</DescriptionText>
-                    </Description>
+                    {selectedTask && (
+                        <Description>
+                            <DescriptionTitle>{selectedTask.title}</DescriptionTitle>
+                            <DescriptionInfo><strong>Data:</strong> {getDate(selectedTask.date)}</DescriptionInfo>
+                            <DescriptionInfo><strong>Horário:</strong> {selectedTask.time ? selectedTask.time.slice(0, 5) : 'Indefinido'}</DescriptionInfo>
+                            <DescritionTitle2>Descrição</DescritionTitle2>
+                            <DescriptionText>{selectedTask.description || 'Nenhuma descrição'}</DescriptionText>
+                        </Description>
+                    )}
                 </ListContainer>
             </MainContainer>
         </>

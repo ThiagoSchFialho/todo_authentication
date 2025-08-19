@@ -1,3 +1,4 @@
+import { useDb } from '../../hooks/useDb';
 import {
     TaskContainer,
     TaskCheckBox,
@@ -8,16 +9,52 @@ import {
     TaskDateTime,
 } from './styles';
 
-const Task = ({ task }) => {
+
+const getDate = (date) => {
+    const currentDate = new Date();
+    const d = new Date(date);
+
+    const isToday =
+        d.getDate() === currentDate.getDate() &&
+        d.getMonth() === currentDate.getMonth() &&
+        d.getFullYear() === currentDate.getFullYear();
+
+    if (isToday) {
+        return 'Hoje';
+
+    } else {
+        const day = d.getDate().toString().padStart(2, '0');
+        const month = (d.getMonth() + 1).toString().padStart(2, '0');
+        const year = d.getFullYear().toString();
+
+        return `${day}/${month}/${year}`;
+    }
+}
+
+const Task = ({ task, fetch, selectedTask }) => {
+    const { updateStatusTask } = useDb();
+
+    const updateDoneStatus = async (id) => {
+        const result = await updateStatusTask(id);
+
+        if (result.sucess) {
+            fetch();
+        }
+    }
+
+    const updateDescription = () => {
+        selectedTask();
+    }
+
     return (
         <TaskContainer>
-            <TaskCheckBox src={task.done ? "/check_box_checked.svg" : "/check_box.svg"}/>
-            <TaskContentContainer>
+            <TaskCheckBox onClick={() => updateDoneStatus(task.id)} src={task.done ? "/check_box_checked.svg" : "/check_box.svg"}/>
+            <TaskContentContainer onClick={() => updateDescription()}>
                 <TaskTitle>{task.title}</TaskTitle>
                 <TaskInfo>
                     <TaskCategory>{task.category}</TaskCategory>
                     <TaskDateTime>
-                        {task.date}{task.time ? ` - ${task.time}` : ""}
+                        {getDate(task.date)}{task.time ? ` - ${task.time.slice(0, 5)}` : ""}
                     </TaskDateTime>
                 </TaskInfo>
             </TaskContentContainer>

@@ -24,5 +24,30 @@ export const useDb = () => {
         }
     }
 
-    return { getTasks }
+    const updateStatusTask = async (id) => {
+        const user_id = localStorage.getItem('userId');
+        
+        try {
+            const response = await fetch(`${host}/tasks/done/${id}?user_id=${user_id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = response.json();
+
+            if (!response.ok) {
+                console.error(data.error);
+                return { error: data.error};
+            }
+
+            return { sucess: true }
+            
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return {error: 'Erro de conexão com servidor' };
+        }
+    }
+
+    return { getTasks, updateStatusTask }
 }
