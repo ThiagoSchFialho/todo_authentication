@@ -54,7 +54,7 @@ const Task = ({ task, fetch, selectedTask }) => {
                 <TaskInfo>
                     <TaskCategory>{task.category}</TaskCategory>
                     <TaskDateTime>
-                        {getDate(task.date)}{task.time ? ` - ${task.time.slice(0, 5)}` : ""}
+                        {getDate(task.date)}{task.time ? ` - ${task.time.substring(0, 5)}` : ""}
                     </TaskDateTime>
                 </TaskInfo>
             </TaskContentContainer>

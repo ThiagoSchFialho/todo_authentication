@@ -47,12 +47,14 @@ const getDate = (date) => {
 const Home = () => {
     const userId = localStorage.getItem('userId');
     const { getTasks } = useDb();
-    const [tasks, setTasks] = useState();
+    const [tasks, setTasks] = useState([]);
     const [selectedTask, setSelectedTask] = useState();
+    const [currentCategory, setCurrentCategory] = useState('Todas as categorias');
 
     const fetchTasks = async () => {
         const tasks = await getTasks(userId);
         setTasks(tasks);
+        setSelectedTask(tasks[0]);
     };
 
     useEffect(() => {
@@ -72,22 +74,22 @@ const Home = () => {
                         <CategoryTitle>Categorias</CategoryTitle>
                         <Separator/>
                         <CategoryList>
-                            <CategoryItemContainer>
+                            <CategoryItemContainer onClick={() => setCurrentCategory('Todas as categorias')}>
                                 <img src="/Inbox.svg" alt="inbox"/>
                                 <CategoryItem>Todas</CategoryItem>
                             </CategoryItemContainer>
 
-                            <CategoryItemContainer>
+                            <CategoryItemContainer onClick={() => setCurrentCategory('Trabalho')}>
                                 <img src="/Briefcase.svg"/>
                                 <CategoryItem>Trabalho</CategoryItem>
                             </CategoryItemContainer>
 
-                            <CategoryItemContainer>
+                            <CategoryItemContainer onClick={() => setCurrentCategory('Estudo')}>
                                 <img src="/Book.svg"/>
                                 <CategoryItem>Estudo</CategoryItem>
                             </CategoryItemContainer>
 
-                            <CategoryItemContainer>
+                            <CategoryItemContainer onClick={() => setCurrentCategory('Casa')}>
                                 <img src="/Home.svg"/>
                                 <CategoryItem>Casa</CategoryItem>
                             </CategoryItemContainer>
@@ -103,16 +105,18 @@ const Home = () => {
                 <ListContainer>
 
                     <List>
-                        <ListTitle>Todas as categorias</ListTitle>
+                        <ListTitle>{currentCategory}</ListTitle>
                         {tasks && tasks.length > 0 ? (
                             <>
                                 {tasks.map((task) => (
-                                    <Task 
-                                        key={task.id} 
-                                        task={task} 
-                                        fetch={() => fetchTasks()}
-                                        selectedTask={() => setSelectedTask(task)}
-                                    />
+                                    (currentCategory === 'Todas as categorias' || task.category === currentCategory) && (
+                                        <Task 
+                                            key={task.id} 
+                                            task={task} 
+                                            fetch={fetchTasks}
+                                            selectedTask={() => setSelectedTask(task)}
+                                        />
+                                    )
                                 ))}
                             </>
                         ) : (
@@ -124,7 +128,7 @@ const Home = () => {
                         <Description>
                             <DescriptionTitle>{selectedTask.title}</DescriptionTitle>
                             <DescriptionInfo><strong>Data:</strong> {getDate(selectedTask.date)}</DescriptionInfo>
-                            <DescriptionInfo><strong>Horário:</strong> {selectedTask.time ? selectedTask.time.slice(0, 5) : 'Indefinido'}</DescriptionInfo>
+                            <DescriptionInfo><strong>Horário:</strong> {selectedTask.time ? selectedTask.time.substring(0, 5) : 'Indefinido'}</DescriptionInfo>
                             <DescritionTitle2>Descrição</DescritionTitle2>
                             <DescriptionText>{selectedTask.description || 'Nenhuma descrição'}</DescriptionText>
                         </Description>
