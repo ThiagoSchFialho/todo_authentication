@@ -85,7 +85,7 @@ const Signup = () => {
                         </InputContainer>
 
                         <SubmitButton type="submit">Cadastrar</SubmitButton>
-                        <Redirect>Já tem conta? <a href="/">entre</a></Redirect>
+                        <Redirect>Já tem conta? <a href="/login">entre</a></Redirect>
                     </Form>
                     </Formik>
                     <TermsText>

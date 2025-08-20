@@ -23,6 +23,31 @@ export const useDb = () => {
             return {error: 'Erro de conexão com servidor' };
         }
     }
+
+    const createCategory = async (values) => {
+        const userId = localStorage.getItem('userId');
+        try {
+            const response = await fetch(`${host}/categories?user_id=${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = response.json()
+
+            if (!response.ok) {
+                console.error(data.error);
+                return { error: data.error};
+            }
+
+            return { success: false, error: data.error || 'Falha ao criar categoria' };
+
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return {error: 'Erro de conexão com servidor' };
+        }
+    }
     
     const getTasks = async (userId) => {
         try {
@@ -72,5 +97,5 @@ export const useDb = () => {
         }
     }
 
-    return { getCategories, getTasks, updateStatusTask }
+    return { getCategories, createCategory, getTasks, updateStatusTask }
 }

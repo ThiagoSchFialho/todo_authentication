@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDb } from "../../hooks/useDb";
 import Task from "../../components/Task/Task";
+import CategoryMenuItem from "../../components/categoryMenuItem/CategoryMenuItem";
+import CategoryForm from "../../components/CategoryForm/CategoryForm";
 import {
     MainContainer,
     SidePainel,
@@ -22,7 +24,6 @@ import {
     DescritionTitle2,
     DescriptionText
 } from "./styles"
-import CategoryMenuItem from "../../components/categoryMenuItem/CategoryMenuItem";
 
 const getDate = (date) => {
     const currentDate = new Date();
@@ -52,6 +53,7 @@ const Home = () => {
     const [categories, setCategories] = useState([]);
     const [selectedTask, setSelectedTask] = useState();
     const [currentCategory, setCurrentCategory] = useState('Todas as categorias');
+    const [isAddingCategory, setIsAddingCategory] = useState(false);
 
     const fetchTasks = async () => {
         const tasks = await getTasks(userId);
@@ -97,10 +99,14 @@ const Home = () => {
                                 />
                             ))}
 
-                            <CategoryItemContainer>
-                                <img src="/add.svg" alt="add"/>
-                                <CategoryItem>Adicionar categoria</CategoryItem>
-                            </CategoryItemContainer>
+                            {isAddingCategory ? (
+                                <CategoryForm fetchCategories={fetchCategories} setIsAddingCategory={setIsAddingCategory} />
+                            ) : (
+                                <CategoryItemContainer onClick={() => setIsAddingCategory(true)}>
+                                    <img src="/add.svg" alt="add"/>
+                                    <CategoryItem>Adicionar categoria</CategoryItem>
+                                </CategoryItemContainer>
+                            )}
 
                         </CategoryList>
                     </CategoriesContainer>
