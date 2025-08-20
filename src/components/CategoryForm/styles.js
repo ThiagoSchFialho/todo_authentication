@@ -24,8 +24,18 @@ export const ErrorText = styled.p`
 `
 
 export const SubmitButton =  styled.button`
-    display: block;
     background-color: #1C5D99;
+    color: white;
+    font-size: 12pt;
+    border: none;
+    border-radius: 3px;
+    padding: 2px 10px;
+    margin-right: 5px;
+    cursor: pointer;
+`;
+
+export const CancelButton =  styled.button`
+    background-color: #99241cff;
     color: white;
     font-size: 12pt;
     border: none;

@@ -7,7 +7,8 @@ import {
     InputContainer,
     Input,
     ErrorText,
-    SubmitButton
+    SubmitButton,
+    CancelButton
 } from './styles';
 
 const validationSchema = Yup.object({
@@ -56,6 +57,7 @@ const CategoryForm = ({ fetchCategories, setIsAddingCategory }) => {
                 <SubmitButton type="submit" disabled={isLoading}>
                     {isLoading ? "Adicionando..." : "Adicionar"}
                 </SubmitButton>
+                <CancelButton onClick={() => setIsAddingCategory(false)}>Cancelar</CancelButton>
             </Form>
         </Formik>
     )
