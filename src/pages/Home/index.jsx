@@ -109,7 +109,7 @@ const Home = () => {
                         {tasks && tasks.length > 0 ? (
                             <>
                                 {tasks.map((task) => (
-                                    (currentCategory === 'Todas as categorias' || task.category === currentCategory) && (
+                                    (currentCategory === 'Todas as categorias' || task.category_name === currentCategory) && (
                                         <Task 
                                             key={task.id} 
                                             task={task} 
