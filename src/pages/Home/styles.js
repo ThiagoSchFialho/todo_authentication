@@ -67,7 +67,6 @@ export const CategoryItem = styled.span`
     font-size: 15pt;
 `;
 
-
 export const ListContainer = styled.div`
     width: 100%;
     display: flex;

@@ -22,6 +22,7 @@ import {
     DescritionTitle2,
     DescriptionText
 } from "./styles"
+import CategoryMenuItem from "../../components/categoryMenuItem/CategoryMenuItem";
 
 const getDate = (date) => {
     const currentDate = new Date();
@@ -46,8 +47,9 @@ const getDate = (date) => {
 
 const Home = () => {
     const userId = localStorage.getItem('userId');
-    const { getTasks } = useDb();
+    const { getCategories, getTasks } = useDb();
     const [tasks, setTasks] = useState([]);
+    const [categories, setCategories] = useState([]);
     const [selectedTask, setSelectedTask] = useState();
     const [currentCategory, setCurrentCategory] = useState('Todas as categorias');
 
@@ -57,8 +59,14 @@ const Home = () => {
         setSelectedTask(tasks[0]);
     };
 
+    const fetchCategories = async () => {
+        const category = await getCategories(userId);
+        setCategories(category);
+    };
+
     useEffect(() => {
         fetchTasks();
+        fetchCategories();
     }, []);
 
     return (
@@ -74,30 +82,26 @@ const Home = () => {
                         <CategoryTitle>Categorias</CategoryTitle>
                         <Separator/>
                         <CategoryList>
-                            <CategoryItemContainer onClick={() => setCurrentCategory('Todas as categorias')}>
-                                <img src="/Inbox.svg" alt="inbox"/>
-                                <CategoryItem>Todas</CategoryItem>
-                            </CategoryItemContainer>
 
-                            <CategoryItemContainer onClick={() => setCurrentCategory('Trabalho')}>
-                                <img src="/Briefcase.svg"/>
-                                <CategoryItem>Trabalho</CategoryItem>
-                            </CategoryItemContainer>
+                            <CategoryMenuItem
+                                key="all"
+                                category="Todas" 
+                                setCurrentCategory={() => setCurrentCategory("Todas as categorias")}
+                            />
 
-                            <CategoryItemContainer onClick={() => setCurrentCategory('Estudo')}>
-                                <img src="/Book.svg"/>
-                                <CategoryItem>Estudo</CategoryItem>
-                            </CategoryItemContainer>
-
-                            <CategoryItemContainer onClick={() => setCurrentCategory('Casa')}>
-                                <img src="/Home.svg"/>
-                                <CategoryItem>Casa</CategoryItem>
-                            </CategoryItemContainer>
+                            {categories.map((category) => (
+                                <CategoryMenuItem
+                                    key={category.id}
+                                    category={category.title}
+                                    setCurrentCategory={() => setCurrentCategory(category.title)}
+                                />
+                            ))}
 
                             <CategoryItemContainer>
                                 <img src="/add.svg" alt="add"/>
                                 <CategoryItem>Adicionar categoria</CategoryItem>
                             </CategoryItemContainer>
+
                         </CategoryList>
                     </CategoriesContainer>
                 </SidePainel>
