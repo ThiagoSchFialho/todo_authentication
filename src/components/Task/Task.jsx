@@ -37,7 +37,7 @@ const Task = ({ task, fetch, selectedTask }) => {
     const updateDoneStatus = async (id) => {
         const result = await updateStatusTask(id);
 
-        if (result.sucess) {
+        if (result.success) {
             fetch();
         }
     }

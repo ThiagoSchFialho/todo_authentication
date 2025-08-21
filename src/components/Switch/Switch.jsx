@@ -1,12 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Switch = () => {
+const Switch = ({ isEditing, setIsEditing }) => {
   return (
     <StyledWrapper>
       <div className='container'>
         <p className='label'>Editar</p>
-        <input type="checkbox" id="checkboxInput" />
+        <input
+          type="checkbox"
+          id="checkboxInput"
+          checked={isEditing}
+          onChange={() => setIsEditing(!isEditing)}
+        />
         <label htmlFor="checkboxInput" className="toggleSwitch">
         </label>
       </div>

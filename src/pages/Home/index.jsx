@@ -110,7 +110,7 @@ const Home = () => {
                     </List>
 
                     {selectedTask && (
-                        <TaskDescription task={selectedTask} fetchTasks={fetchTasks} />
+                        <TaskDescription categories={categories} task={selectedTask} fetchTasks={fetchTasks} />
                     )}
                 </ListContainer>
             </MainContainer>

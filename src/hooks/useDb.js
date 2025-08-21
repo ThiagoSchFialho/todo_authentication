@@ -48,6 +48,31 @@ export const useDb = () => {
             return {error: 'Erro de conexão com servidor' };
         }
     }
+
+    const createTask = async (values) => {
+        const userId = localStorage.getItem('userId');
+        try {
+            const response = await fetch(`${host}/tasks?user_id=${userId}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = response.json()
+
+            if (!response.ok) {
+                console.error(data.error);
+                return { error: data.error};
+            }
+
+            return { success: false, error: data.error || 'Falha ao criar categoria' };
+
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return {error: 'Erro de conexão com servidor' };
+        }
+    }
     
     const getTasks = async (userId) => {
         try {
@@ -72,6 +97,32 @@ export const useDb = () => {
         }
     }
 
+    const updateTask = async (values) => {
+        const userId = localStorage.getItem('userId');
+        const id = values.id;
+        try {
+            const response = await fetch(`${host}/tasks/${id}?user_id=${userId}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(values)
+            });
+            const data = response.json()
+
+            if (!response.ok) {
+                console.error(data.error);
+                return { error: data.error};
+            }
+
+            return { success: false, error: data.error || 'Falha ao criar categoria' };
+
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return {error: 'Erro de conexão com servidor' };
+        }
+    }
+
     const updateStatusTask = async (id) => {
         const user_id = localStorage.getItem('userId');
         
@@ -89,7 +140,7 @@ export const useDb = () => {
                 return { error: data.error};
             }
 
-            return { sucess: true }
+            return { success: true }
             
         } catch (error) {
             console.error('Erro na requisição: ', error);
@@ -114,7 +165,7 @@ export const useDb = () => {
                 return { error: data.error};
             }
 
-            return { sucess: true } 
+            return { success: true } 
 
         } catch (error) {
             console.error('Erro na requisição: ', error);
@@ -122,5 +173,5 @@ export const useDb = () => {
         }
     } 
 
-    return { getCategories, createCategory, getTasks, updateStatusTask, deleteTask }
+    return { getCategories, createCategory, createTask, getTasks, updateTask, updateStatusTask, deleteTask }
 }

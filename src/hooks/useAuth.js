@@ -42,7 +42,7 @@ export const useAuth = () => {
             
         } catch (error) {
             console.error('Erro na requisição: ', error);
-            return { sucess: false, error: 'Erro de conexão com servidor' };
+            return { success: false, error: 'Erro de conexão com servidor' };
         }
     }
 
@@ -66,7 +66,7 @@ export const useAuth = () => {
             
         } catch (error) {
             console.error('Erro na requisição: ', error);
-            return { sucess: false, error: 'Erro de conexão com servidor' };
+            return { success: false, error: 'Erro de conexão com servidor' };
         }
 
     }

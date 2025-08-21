@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Field, Form as FormikForm } from 'formik';
 
 export const Description = styled.div`
     width: 350px;
@@ -19,6 +20,7 @@ export const EditToggle = styled.div`
 export const DescriptionTitle = styled.h1`
     font-size: 16pt;
     margin-bottom: 20px;
+    font-weight: 700;
 `;
 
 export const DescriptionInfo = styled.p`
@@ -48,5 +50,74 @@ export const FooterOptionsList = styled.div`
 export const FooterOptionsItem = styled.div`
     color: #ca3d3dff;
     font-weight: 600;
+    cursor: pointer;
+`;
+
+export const Form = styled(FormikForm)`
+`;
+
+export const InputContainer = styled.div`
+
+`;
+
+export const InputTitle = styled(Field)`
+    background-color: #F4FAFF;
+    width: 100%;
+    outline: none;
+    border: none;
+    font-size: 16pt;
+    margin-bottom: 20px;
+    font-weight: 700;
+`;
+
+export const DescriptionInfoForm = styled.div`
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+`;
+
+export const InputDateTime = styled(Field)`
+    display: inline-block;
+    /* width: 150px; */
+    background-color: #F4FAFF;
+    outline: none;
+    border: none;
+    font-size: 12pt;
+    margin-bottom: -2px;
+`;
+
+export const SelectCategory = styled(Field)`
+  display: inline-block;
+  width: 200px;
+  background-color: #F4FAFF;
+  outline: none;
+  border: none;
+  font-size: 12pt;
+  border-radius: 4px;
+`;
+
+export const InputDescription = styled(Field)`
+    text-indent: 20px;
+    display: block;
+    width: 100%;
+    min-height: 100px;
+    resize: vertical;
+    background-color: #F4FAFF;
+    outline: none;
+    border: 1px solid black;
+    font-size: 12pt;
+    padding: 10px;
+    border-radius: 3px;
+`;
+
+export const SubmitButton = styled.button`
+    display: block;
+    margin: 50px auto 0 auto;
+    background-color: #1C5D99;
+    color: white;
+    font-size: 16pt;
+    border: none;
+    border-radius: 10px;
+    padding: 5px 30px;
     cursor: pointer;
 `;
