@@ -12,7 +12,7 @@ import {
 } from './styles';
 
 const validationSchema = Yup.object({
-    title: Yup.string().required("O nome da categoria é obrigatório"),
+    title: Yup.string().required("Por favor, informe o nome da categoria"),
 });
 
 const CategoryForm = ({ fetchCategories, setIsAddingCategory }) => {

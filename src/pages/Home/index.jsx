@@ -17,34 +17,9 @@ import {
     CategoryItem,
     ListContainer,
     List,
-    ListTitle,
-    Description,
-    DescriptionTitle,
-    DescriptionInfo,
-    DescritionTitle2,
-    DescriptionText
+    ListTitle
 } from "./styles"
-
-const getDate = (date) => {
-    const currentDate = new Date();
-    const d = new Date(date);
-
-    const isToday =
-        d.getDate() === currentDate.getDate() &&
-        d.getMonth() === currentDate.getMonth() &&
-        d.getFullYear() === currentDate.getFullYear();
-
-    if (isToday) {
-        return 'Hoje';
-
-    } else {
-        const day = d.getDate().toString().padStart(2, '0');
-        const month = (d.getMonth() + 1).toString().padStart(2, '0');
-        const year = d.getFullYear().toString();
-
-        return `${day}/${month}/${year}`;
-    }
-}
+import TaskDescription from "../../components/TaskDescription/TaskDescription";
 
 const Home = () => {
     const userId = localStorage.getItem('userId');
@@ -135,13 +110,7 @@ const Home = () => {
                     </List>
 
                     {selectedTask && (
-                        <Description>
-                            <DescriptionTitle>{selectedTask.title}</DescriptionTitle>
-                            <DescriptionInfo><strong>Data:</strong> {getDate(selectedTask.date)}</DescriptionInfo>
-                            <DescriptionInfo><strong>Horário:</strong> {selectedTask.time ? selectedTask.time.substring(0, 5) : 'Indefinido'}</DescriptionInfo>
-                            <DescritionTitle2>Descrição</DescritionTitle2>
-                            <DescriptionText>{selectedTask.description || 'Nenhuma descrição'}</DescriptionText>
-                        </Description>
+                        <TaskDescription task={selectedTask} fetchTasks={fetchTasks} />
                     )}
                 </ListContainer>
             </MainContainer>
