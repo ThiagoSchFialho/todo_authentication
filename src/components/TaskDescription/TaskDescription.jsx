@@ -17,8 +17,7 @@ import {
     FormFields,
     TaskTitleInput,
     FormFieldGroup,
-    DateInput,
-    TimeInput,
+    DateTimeInput,
     CategorySelect,
     DescriptionInput,
     ErrorText,
@@ -109,12 +108,12 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
 
                         <FormFieldGroup style={{ marginTop: "20px" }}>
                             <strong>Data:</strong>
-                            <DateInput type="date" name="date" id="date"/>
+                            <DateTimeInput type="date" name="date" id="date"/>
                         </FormFieldGroup>
 
                         <FormFieldGroup>
                             <strong>Horário:</strong>
-                            <TimeInput type="time" name="time" id="time"/>
+                            <DateTimeInput type="time" name="time" id="time"/>
                         </FormFieldGroup>
 
                         <FormFieldGroup>

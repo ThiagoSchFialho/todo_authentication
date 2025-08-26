@@ -73,16 +73,7 @@ export const FormFieldGroup = styled.div`
     margin-bottom: 5px;
 `;
 
-export const DateInput = styled(Field)`
-    display: inline-block;
-    background-color: #F4FAFF;
-    outline: none;
-    border: none;
-    font-size: 12pt;
-    margin-bottom: -2px;
-`;
-
-export const TimeInput = styled(Field)`
+export const DateTimeInput = styled(Field)`
     display: inline-block;
     background-color: #F4FAFF;
     outline: none;

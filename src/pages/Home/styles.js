@@ -81,3 +81,24 @@ export const ListTitle = styled.h1`
     font-size: 20pt;
     margin-bottom: 50px;
 `;
+
+export const AddTask = styled.button`
+    position: fixed;
+    bottom: 10px;
+    right: 370px;
+    width: 60px;
+    height: 60px;
+    border-radius: 40%;
+    border: none;
+    box-shadow: 0px 0px 5px 2px #0060af7c;
+    background-color: #1C5D99;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    cursor: pointer;
+`;
+
+export const AddTaskImg = styled.img`
+    width: 40px;
+`;

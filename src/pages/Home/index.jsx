@@ -3,6 +3,7 @@ import { useDb } from "../../hooks/useDb";
 import Task from "../../components/Task/Task";
 import CategoryMenuItem from "../../components/categoryMenuItem/CategoryMenuItem";
 import CategoryForm from "../../components/CategoryForm/CategoryForm";
+import AddTaskForm from "../../components/AddTaskForm/AddTaskForm";
 import {
     MainContainer,
     SidePainel,
@@ -17,7 +18,9 @@ import {
     CategoryItem,
     ListContainer,
     List,
-    ListTitle
+    ListTitle,
+    AddTask,
+    AddTaskImg
 } from "./styles"
 import TaskDescription from "../../components/TaskDescription/TaskDescription";
 
@@ -29,6 +32,7 @@ const Home = () => {
     const [selectedTask, setSelectedTask] = useState();
     const [currentCategory, setCurrentCategory] = useState('Todas as categorias');
     const [isAddingCategory, setIsAddingCategory] = useState(false);
+    const [isAddingTask, setIsAddingTask] = useState(false);
 
     const fetchTasks = async () => {
         const tasks = await getTasks(userId);
@@ -109,10 +113,19 @@ const Home = () => {
                         )}
                     </List>
 
+                    <AddTask onClick={() => setIsAddingTask(true)}>
+                        <AddTaskImg src="/add_task.svg" alt="Adicionar tarefa"/>
+                    </AddTask>
+
                     {selectedTask && (
                         <TaskDescription categories={categories} task={selectedTask} fetchTasks={fetchTasks} />
                     )}
                 </ListContainer>
+
+                {isAddingTask && (
+                    <AddTaskForm categories={categories} task={selectedTask} fetchTasks={fetchTasks}/>
+                )}
+
             </MainContainer>
         </>
     )
