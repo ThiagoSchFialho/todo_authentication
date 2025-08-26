@@ -65,25 +65,46 @@ export const InputTitle = styled(Field)`
     width: 100%;
     outline: none;
     border: none;
+    border-bottom: 1px solid #002241;
     font-size: 16pt;
-    margin-bottom: 20px;
     font-weight: 700;
 `;
 
-export const DescriptionInfoForm = styled.div`
+export const DescriptionDateContainer = styled.div`
     display: flex;
     gap: 5px;
     margin-bottom: 5px;
+    margin-top: 20px;
 `;
 
-export const InputDateTime = styled(Field)`
+export const InputDate = styled(Field)`
     display: inline-block;
-    /* width: 150px; */
     background-color: #F4FAFF;
     outline: none;
     border: none;
     font-size: 12pt;
     margin-bottom: -2px;
+`;
+
+export const DescriptionTimeContainer = styled.div`
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
+`;
+
+export const InputTime = styled(Field)`
+    display: inline-block;
+    background-color: #F4FAFF;
+    outline: none;
+    border: none;
+    font-size: 12pt;
+    margin-bottom: -2px;
+`;
+
+export const DescriptionCategoryContainer = styled.div`
+    display: flex;
+    gap: 5px;
+    margin-bottom: 5px;
 `;
 
 export const SelectCategory = styled(Field)`
@@ -109,6 +130,12 @@ export const InputDescription = styled(Field)`
     padding: 10px;
     border-radius: 3px;
 `;
+
+export const ErrorText = styled.p`
+    margin: 0;
+    color: red;
+    font-size: 12px;
+`
 
 export const SubmitButton = styled.button`
     display: block;

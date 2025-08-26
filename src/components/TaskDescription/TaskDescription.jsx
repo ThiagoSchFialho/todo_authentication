@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Formik } from "formik";
+import { ErrorMessage, Formik } from "formik";
 import * as Yup from 'yup';
 import { useDb } from "../../hooks/useDb";
 import Switch from "../../components/Switch/Switch";
@@ -16,16 +16,29 @@ import {
     Form,
     InputContainer,
     InputTitle,
-    DescriptionInfoForm,
-    InputDateTime,
+    DescriptionDateContainer,
+    InputDate,
+    DescriptionTimeContainer,
+    InputTime,
+    DescriptionCategoryContainer,
     SelectCategory,
     InputDescription,
+    ErrorText,
     SubmitButton
 } from './styles';
 
 const validationSchema = Yup.object({
+  title: Yup.string()
+    .required("O título é obrigatório")
+    .min(3, "O título deve ter pelo menos 3 caracteres"),
 
-})
+  category_id: Yup.string()
+    .required("A categoria é obrigatória"),
+
+  description: Yup.string()
+    .max(500, "A descrição não pode passar de 500 caracteres")
+});
+
 
 const getDate = (date) => {
     const currentDate = new Date();
@@ -66,7 +79,6 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
     }
 
     const handleUpdateTask = async (values) => {
-        console.log(values);
         const result = await updateTask(values);
 
         if (result.success) {
@@ -76,8 +88,6 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
         window.location.reload()
     }
 
-    console.log(task)
-    console.log(categories)
     return (
         <Description>
             <EditToggle>
@@ -102,18 +112,19 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
                     <Form>
                         <InputContainer>
                             <InputTitle type="text" name="title" id="title"/>
+                            <ErrorMessage name='title' component={ErrorText}/>
 
-                            <DescriptionInfoForm>
+                            <DescriptionDateContainer>
                                 <strong>Data:</strong>
-                                <InputDateTime type="date" name="date" id="date"/>
-                            </DescriptionInfoForm>
+                                <InputDate type="date" name="date" id="date"/>
+                            </DescriptionDateContainer>
 
-                            <DescriptionInfoForm>
+                            <DescriptionTimeContainer>
                                 <strong>Horário:</strong>
-                                <InputDateTime type="time" name="time" id="time"/>
-                            </DescriptionInfoForm>
+                                <InputTime type="time" name="time" id="time"/>
+                            </DescriptionTimeContainer>
 
-                            <DescriptionInfoForm>
+                            <DescriptionCategoryContainer>
                                 <strong>Categoria:</strong>
                                 <SelectCategory component="select" name="category_id" id="category_id">
                                     <option value="">Selecione uma categoria</option>
@@ -123,10 +134,12 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
                                         </option>
                                     ))}
                                 </SelectCategory>
-                            </DescriptionInfoForm>
+                            </DescriptionCategoryContainer>
+                            <ErrorMessage name='category_id' component={ErrorText}/>
 
                             <DescritionTitle2>Descrição</DescritionTitle2>
                             <InputDescription component="textarea" name="description" id="description"/>
+                            <ErrorMessage name='description' component={ErrorText}/>
                         </InputContainer>
     
                         <SubmitButton type="submit">Salvar</SubmitButton>
