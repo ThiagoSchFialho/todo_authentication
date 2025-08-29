@@ -55,11 +55,6 @@ const Home = () => {
         <>
             <MainContainer>
                 <SidePainel>
-                    <UserProfileContainer>
-                        <UserProfileImg src="/userProfile.svg" alt="User Profile" />
-                        <UserName>User name</UserName>
-                    </UserProfileContainer>
-
                     <CategoriesContainer>
                         <CategoryTitle>Categorias</CategoryTitle>
                         <Separator/>
