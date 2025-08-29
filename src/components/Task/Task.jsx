@@ -52,7 +52,7 @@ const Task = ({ task, fetch, selectedTask }) => {
             <TaskContentContainer onClick={() => updateDescription()}>
                 <TaskTitle>{task.title}</TaskTitle>
                 <TaskInfo>
-                    <TaskCategory>{task.category_name}</TaskCategory>
+                    <TaskCategory>{task.category_name || "Sem categoria"}</TaskCategory>
                     <TaskDateTime>
                         {getDate(task.date)}{task.time ? ` - ${task.time.substring(0, 5)}` : ""}
                     </TaskDateTime>

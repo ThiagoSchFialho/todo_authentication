@@ -59,6 +59,7 @@ export const FormFields = styled.div``;
 
 export const TaskTitleInput = styled(Field)`
     background-color: #F4FAFF;
+    background-color: white;
     width: 100%;
     outline: none;
     border: none;
@@ -76,6 +77,7 @@ export const FormFieldGroup = styled.div`
 export const DateTimeInput = styled(Field)`
     display: inline-block;
     background-color: #F4FAFF;
+    background-color: white;
     outline: none;
     border: none;
     font-size: 12pt;
@@ -86,6 +88,7 @@ export const CategorySelect = styled(Field)`
   display: inline-block;
   width: 200px;
   background-color: #F4FAFF;
+background-color: white;
   outline: none;
   border: none;
   font-size: 12pt;
@@ -99,6 +102,7 @@ export const DescriptionInput = styled(Field)`
     min-height: 100px;
     resize: vertical;
     background-color: #F4FAFF;
+    background-color: white;
     outline: none;
     border: 1px solid black;
     font-size: 12pt;

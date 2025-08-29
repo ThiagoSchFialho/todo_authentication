@@ -33,6 +33,7 @@ const Home = () => {
     const [currentCategory, setCurrentCategory] = useState('Todas as categorias');
     const [isAddingCategory, setIsAddingCategory] = useState(false);
     const [isAddingTask, setIsAddingTask] = useState(false);
+    const [isDeletingCategory, setIsDeletingCategory] = useState(false);
 
     const fetchTasks = async () => {
         const tasks = await getTasks(userId);
@@ -73,18 +74,28 @@ const Home = () => {
                             {categories.map((category) => (
                                 <CategoryMenuItem
                                     key={category.id}
-                                    category={category.title}
+                                    category={category}
                                     setCurrentCategory={() => setCurrentCategory(category.title)}
+                                    isDeletingCategory={isDeletingCategory}
+                                    setIsDeletingCategory={setIsDeletingCategory}
+                                    fetchCategories={fetchCategories}
+                                    fetchTasks={fetchTasks}
                                 />
                             ))}
 
                             {isAddingCategory ? (
                                 <CategoryForm fetchCategories={fetchCategories} setIsAddingCategory={setIsAddingCategory} />
                             ) : (
-                                <CategoryItemContainer onClick={() => setIsAddingCategory(true)}>
-                                    <img src="/add.svg" alt="add"/>
-                                    <CategoryItem>Adicionar categoria</CategoryItem>
-                                </CategoryItemContainer>
+                                <>
+                                    <CategoryItemContainer onClick={() => setIsAddingCategory(true)}>
+                                        <img src="/add.svg" alt="add"/>
+                                        <CategoryItem>Adicionar categoria</CategoryItem>
+                                    </CategoryItemContainer>
+                                    <CategoryItemContainer onClick={() => setIsDeletingCategory(!isDeletingCategory)}>
+                                        <img src="/delete.svg" alt="add"/>
+                                        <CategoryItem>{isDeletingCategory ? "Cancelar" : "Excluir categoria"}</CategoryItem>
+                                    </CategoryItemContainer>
+                                </>
                             )}
 
                         </CategoryList>

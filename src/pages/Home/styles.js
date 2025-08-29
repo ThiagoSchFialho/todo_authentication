@@ -51,14 +51,25 @@ export const CategoryList = styled.ul`
 
 export const CategoryItemContainer = styled.li`
     display: flex;
-    align-items: center;
+    align-items: end;
     gap: 5px;
     margin-bottom: 10px;
     cursor: pointer;
     
-    &:last-child span {
+    &:nth-last-child(2) span {
+        font-size: 13pt;
         font-weight: 400;
-        margin: 10px 0;
+        margin-top: 10px;
+    }
+
+    &:last-child span {
+        font-size: 13pt;
+        font-weight: 400;
+        color: #ca3d3d;
+    }
+
+    img {
+        width: 25px;
     }
 `;
 

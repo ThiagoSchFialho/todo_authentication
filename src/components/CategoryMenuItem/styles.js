@@ -5,7 +5,6 @@ export const CategoryItemContainer = styled.li`
     align-items: center;
     gap: 5px;
     margin-bottom: 10px;
-    cursor: pointer;
     
     &:last-child span {
         font-weight: 400;
@@ -16,4 +15,10 @@ export const CategoryItemContainer = styled.li`
 export const CategoryItem = styled.span`
     font-weight: 500;
     font-size: 15pt;
+    cursor: pointer;
+`;
+
+export const DeleteIcon = styled.img`
+    width: 24px;
+    cursor: pointer;
 `;

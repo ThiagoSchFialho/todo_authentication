@@ -49,6 +49,31 @@ export const useDb = () => {
         }
     }
 
+    const deleteCategory = async (id) => {
+        const user_id = localStorage.getItem('userId');
+
+        try {
+            const response = await fetch(`${host}/categories/${id}?user_id=${user_id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            const data = response.json();
+
+            if (!response.ok) {
+                console.error(data.error);
+                return { error: data.error};
+            }
+
+            return { success: true } 
+
+        } catch (error) {
+            console.error('Erro na requisição: ', error);
+            return {error: 'Erro de conexão com servidor' };
+        }
+    }
+
     const createTask = async (values) => {
         const userId = localStorage.getItem('userId');
         try {
@@ -173,5 +198,5 @@ export const useDb = () => {
         }
     } 
 
-    return { getCategories, createCategory, createTask, getTasks, updateTask, updateStatusTask, deleteTask }
+    return { getCategories, createCategory, deleteCategory, createTask, getTasks, updateTask, updateStatusTask, deleteTask }
 }

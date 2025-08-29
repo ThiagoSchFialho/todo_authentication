@@ -67,11 +67,12 @@ const TaskDescription = ({ categories, task, fetchTasks }) => {
 
         const result = await deleteTask(task.id);
         if (result.success) {
-            fetchTasks();
+            await fetchTasks();
         }
     };
 
     const onUpdateTask = async (values) => {
+        console.log(values);
         const result = await updateTask(values);
 
         if (result.success) {
